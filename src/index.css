@@ -1,0 +1,318 @@
+
+
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    }
+    
+    /* Admin.css */
+    #sidebar {
+        transition: all 0.3s;
+        z-index: 1000;
+        margin-top: 93px;
+        position: fixed;
+        background-color: #dddddd;
+        color: var(--heading-font-color);
+        overflow-x: hidden;
+        overflow-y: auto; /* Enable vertical scrolling */
+        scrollbar-width: none; /* For Firefox */
+    }
+    
+    /* For Chrome, Edge, and Safari */
+    #sidebar::-webkit-scrollbar {
+        display: none;
+    }
+    
+      
+    .nav-link{
+        color: var(--heading-font-color) !important;
+        font-weight: 800 !important;
+        font-family: var(--heading-font) !important;
+    
+    }
+      #content {
+       
+        transition: all 0.3s;
+      }
+      .content-m-250{
+        margin-left: 250px;
+      }
+    
+      .content-m-100{
+    margin-left: 80px;
+      }
+      
+      .nav-link {
+        border-radius: 5px;
+        margin: 2px 0;
+        transition: all 0.3s;
+      }
+      
+      .nav-link:hover {
+        background: #4b545c;
+      }
+      
+      .nav-link.active {
+        background: #0d6efd;
+        color: white !important;
+      }
+      
+      @media (max-width: 768px) {
+        #sidebar {
+          margin-left: -250px;
+          position: fixed;
+          top: 56px;
+          height: calc(100vh - 56px);
+        }
+        
+        #content {
+          margin-left: 0;
+        }
+        
+        #sidebar.active {
+          margin-left: 0;
+        }
+      }
+      
+      .main-content {
+        margin-top: 92px;
+      }
+      
+      .fixed-top {
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+        z-index: 1030;
+      }
+    
+    
+    :root {
+        --primary-font: "Alexandria", sans-serif;
+        --heading-font: "Urbanist", sans-serif;
+        --trans: all 0.5s ease-in-out;
+        --heading-font-color: #cc1e28;
+        --primary-color: #282828;
+        --white-color: #fff;
+        --black-color: #000;
+    }
+    
+    .bg-image-vertical {
+        position: relative;
+        overflow: hidden;
+        background-repeat: no-repeat;
+        background-position: right center;
+        background-size: auto 100%;
+        }
+    
+    
+        .login-continer{
+           
+            box-shadow: 2px 2px 10px 4px whitesmoke;
+        }
+        
+      
+    
+        .cus-color{
+            background-color: var(--heading-font-color) !important;
+            color: var(--white-color) !important;
+        }
+    
+        .sidebar-deactive{
+            transition: all 0.3s;
+           width: 80px !important;
+        }
+    
+        .sidebar-active{
+            width: 250px !important;
+        }
+    
+    
+        .modal-confirm {
+          color: #636363;
+          width: 400px;
+        }
+        .modal-confirm .modal-content {
+          padding: 20px;
+          border-radius: 5px;
+          border: none;
+          text-align: center;
+          font-size: 14px;
+        }
+        .modal-confirm .modal-header {
+          border-bottom: none;
+          position: relative;
+        }
+        .modal-confirm h4 {
+          text-align: center;
+          font-size: 26px;
+          margin: 30px 0 -10px;
+        }
+        .modal-confirm .close {
+          position: absolute;
+          top: -5px;
+          right: -2px;
+        }
+        .modal-confirm .modal-body {
+          color: #999;
+        }
+        .modal-confirm .modal-footer {
+          border: none;
+          text-align: center;
+          border-radius: 5px;
+          font-size: 13px;
+          padding: 10px 15px 25px;
+        }
+        .modal-confirm .modal-footer a {
+          color: #999;
+        }
+        .modal-confirm .icon-box {
+          width: 80px;
+          height: 80px;
+          margin: 0 auto;
+          border-radius: 50%;
+          z-index: 9;
+          text-align: center;
+          border: 3px solid #f15e5e;
+        }
+        .modal-confirm .icon-box i {
+          color: #f15e5e;
+          font-size: 46px;
+          display: inline-block;
+          margin-top: 13px;
+        }
+        .modal-confirm .btn {
+          color: #fff;
+          border-radius: 4px;
+          background: #60c7c1;
+          text-decoration: none;
+          transition: all 0.4s;
+          line-height: normal;
+          min-width: 120px;
+          border: none;
+          min-height: 40px;
+          border-radius: 3px;
+          margin: 0 5px;
+          outline: none !important;
+        }
+        .modal-confirm .btn-info {
+          background: #c1c1c1;
+        }
+        .modal-confirm .btn-info:hover, .modal-confirm .btn-info:focus {
+          background: #a8a8a8;
+        }
+        .modal-confirm .btn-danger {
+          background: #f15e5e;
+        }
+        .modal-confirm .btn-danger:hover, .modal-confirm .btn-danger:focus {
+          background: #ee3535;
+        }
+        .trigger-btn {
+          display: inline-block;
+          margin: 100px auto;
+        }
+        
+        input[type="number"] {
+          -moz-appearance: textfield; /* For Firefox */
+          appearance: textfield; /* For modern browsers */
+      }
+      
+      input[type="number"]::-webkit-inner-spin-button,
+      input[type="number"]::-webkit-outer-spin-button {
+          -webkit-appearance: none; /* For Chrome, Safari, Edge */
+          margin: 0;
+      }
+    
+    
+    
+      .formStyle{
+        background-color: #f8f9fa !important;
+        border-radius: 15px !important;
+        padding: 2rem !important;
+        box-shadow :0 0 15px rgba(0,0,0,0.1) !important
+    };
+    
+    .inputStyle{
+        border: 1px solid #ced4da !important;
+        border-radius: 8px !important;
+        transition: border-color 0.3s ease !important
+    };
+    
+    .labelStyle {
+        font-weight: 500 !important;
+        color: #2c3e50 !important;
+        margin-bottom: 0.5rem !important
+    };
+    
+    .cus-sucess{
+    
+     
+        font-size: 46px;
+        display: inline-block;
+      
+    }
+    
+    
+    .cus-icon-box{
+      border: 1px solid #89AC46 !important;
+    }
+    
+    
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: #6366f1;
+      border-radius: 4px;
+    }
+    
+    /* Table row hover effect */
+    .table-hover tbody tr {
+      transition: all 0.2s ease;
+    }
+    
+    .table-hover tbody tr:hover {
+      background: #f8fafc !important;
+      transform: translateX(4px);
+    }
+    
+    /* Add to your main CSS file */
+    .metric-card {
+      transition: transform 0.2s ease-in-out;
+    }
+    
+    .metric-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .table-row {
+      transition: background-color 0.2s ease;
+    }
+    
+    .progress-thin {
+      height: 4px;
+    }
+    
+    .badge-pill-light {
+      background-color: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(4px);
+    }
+
+
+
+    
+    hr {
+      border-top: 2px solid #ddd;
+    }
+    
+  
+   

@@ -36,7 +36,7 @@ const Login = ({setToken})  =>{
                             })
                             
                             ;
-            console.log(response.data, "Response Data");
+         
 
             sessionStorage.setItem('token', response.data.token);
             setToken(response.data.token)
@@ -96,3 +96,4 @@ const Login = ({setToken})  =>{
 }
 
 export default Login;
+

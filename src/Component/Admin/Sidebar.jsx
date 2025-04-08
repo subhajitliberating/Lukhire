@@ -10,6 +10,7 @@ import {
   FaAddressBook,
   FaBox
 } from "react-icons/fa";
+import { FaSignalMessenger } from "react-icons/fa6";
 import { FaCartPlus } from "react-icons/fa6";
 import { useSidebar } from "../../Contex/SidebarContext";
 import { useEffect } from "react";
@@ -46,6 +47,7 @@ const Sidebar = ({setOpen}) => {
           
           </span>
         </Link>
+     
        
 
         {/* <NavLink to="/admin/subcategories" className="nav-link ">
@@ -70,6 +72,13 @@ const Sidebar = ({setOpen}) => {
           < IoIosConstruct className="me-2" size={18}/> 
           <span className={`${isOpen ? '' : 'd-lg-none'}`}>
           Sco
+          
+          </span>
+        </Link>
+        <Link to="/admin/message" className="nav-link ">
+          <FaSignalMessenger className="me-2" size={18} /> 
+          <span className={`${isOpen ? '' : 'd-lg-none'}`}>
+          Contact
           
           </span>
         </Link>

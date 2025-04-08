@@ -105,7 +105,7 @@ nav('/admin/addsco')
     }
 
     const HandelView = (row)=>{
-      nav(`/admin/productview/${row.id}`)
+      nav(`/admin/scoview/${row.id}`,{state : {disible : true}})
     }
 
     const handleSubmit = (e) => {

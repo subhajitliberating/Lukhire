@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import './App.css';
+
 import Login from './Pages/Admin/Login';
 import Admin from './Pages/Admin/Admin';
 import Categories from './Pages/Admin/Categories';
@@ -24,6 +24,7 @@ import Contact from './Pages/Contact';
 import HirePage from './Pages/HirePage';
 import Sco from './Component/Admin/Sco';
 import AddSco from './Pages/Admin/AddSco';
+import AdminContact from './Pages/Admin/AdminContact';
 import { HelmetProvider } from 'react-helmet-async';
 function App() {
   const [token, setToken] = useState(null);
@@ -69,6 +70,8 @@ const AppRoutes = ({ token, setToken }) => {
           <Route path="orderview/:id" element={<OrderView token={token} />} />
           <Route path="sco" element={<Sco token={token} />} />
           <Route path="addsco" element={<AddSco token={token} />} />
+          <Route path="scoview/:id" element={<AddSco token={token} />} />
+          <Route path="message" element={<AdminContact token={token} />} />
           <Route path="editsco/:id" element={<AddSco token={token} />} />
 
         </Route>

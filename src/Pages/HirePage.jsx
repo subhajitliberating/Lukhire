@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Footer from "../Component/Footer";
+import Banner from "../Component/Banner";
 
 const HirePage = () => {
     const { category, product } = useParams();
@@ -101,16 +102,18 @@ const HirePage = () => {
 
 
     return (
+        <div id="main_lukhire">
+            <Banner title={formData.productData.name}/>
         <div className="category-lukhire-access">
             <section className="BookEquipment aos-animated" id="BookEquipment">
                 <div className="container">
-                    <div className="breadcrumbs">
+                    {/* <div className="breadcrumbs">
                         <ul>
                             <li><Link to="/">Home / </Link></li>
                             <li><Link to={`/shop/${category}`}>{category} / </Link></li>
                             <li>Hire {formData.productData.name}</li>
                         </ul>
-                    </div>
+                    </div> */}
                     
                     <div className="btm-panel">
                        
@@ -281,6 +284,7 @@ const HirePage = () => {
                 </div>
             </section>
             <Footer />
+        </div>
         </div>
     );
 };

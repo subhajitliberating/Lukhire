@@ -59,22 +59,7 @@
         color: white !important;
       }
       
-      @media (max-width: 768px) {
-        #sidebar {
-          margin-left: -250px;
-          position: fixed;
-          top: 56px;
-          height: calc(100vh - 56px);
-        }
-        
-        #content {
-          margin-left: 0;
-        }
-        
-        #sidebar.active {
-          margin-left: 0;
-        }
-      }
+    
       
       .main-content {
         margin-top: 92px;
@@ -315,4 +300,29 @@
     }
     
   
-   
+   .hide{
+  opacity: 0;
+  visibility: hidden;
+
+   }
+   .showtext{
+    opacity: 1;
+    visibility: visible;
+    transition: all 0.5s ease-in-out;
+   }
+   .mail{
+      color: red;
+      font-size: medium;
+      font-weight: 400;
+  
+   }
+
+   .cus-title-1{
+    font-size: 20px;
+   }
+   .cus-title-2{
+    font-size: 18px;
+    display: flex;
+    flex-direction: row;
+   }
+

@@ -16,7 +16,8 @@ const DynamicTable = ({
   searchTerm,
   setSearchTerm,
   handleSubmit,
-  tableCheck
+  tableCheck,
+  chechk
 }) => {
   const [selectedRows, setSelectedRows] = useState(new Set());
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
@@ -60,8 +61,10 @@ const DynamicTable = ({
         <Button disabled={row.orderStatus === 'processed' || row.orderStatus === 'Cancelled' || row.orderStatus === 'completed'} variant="outline-success" size="sm" onClick={() => onEdit(row)}>
           <GiConfirmed />
         </Button>
-      ) : (
+      ) : ( !chechk && (
         <Button variant="outline-success" size="sm" onClick={() => onEdit(row.id)}><FaEdit /></Button>
+      ) 
+       
       )}
       <Button variant="outline-danger" size="sm" onClick={() => onDelete(row.id)}><FaTrash /></Button>
     </div>

@@ -3,6 +3,8 @@ import Banner from "../Component/Banner";
 import Footer from "../Component/Footer";
 import { Helmet } from 'react-helmet-async';
 import fetchScoData from "../Contex/GetSco";
+
+import axios from "axios";
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -10,9 +12,23 @@ const Contact = () => {
     phone: "",
     message: ""
   });
+  const [showtext,setShowtext] =useState(false)
+  const handleFocus = (e) => {
+    e.target.closest('.form-group').classList.add('focused');
+  };
+  
+  const handleBlur = (e) => {
+    if (e.target.value === "") {
+      e.target.closest('.form-group').classList.remove('focused');
+    }
+  };
+
 
   const [metaData,setMetaData]=useState({})
   const Api_url = import.meta.env.VITE_API_URL;
+
+  
+
 
     useEffect(()=>{
   
@@ -30,8 +46,21 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    try{
+   const response = await axios.post(`${Api_url}/contact/add`, formData);
+   if (response) {
+    setShowtext(true);
+    setTimeout(() => {
+      setShowtext(false);
+    }, 60000); // 60000ms = 1 minute
+  }
+
+
+    }catch(err){
+console.log(err)
+    }
     console.log("Form Data:", formData);
     // Add your form submission logic here
   };
@@ -137,13 +166,17 @@ const Contact = () => {
                 <div className="form-group">
                   <label className="form-label" htmlFor="YourName">Your Name</label>
                   <input 
-                    id="YourName" 
-                    className="form-control" 
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                  />
+  id="YourName" 
+  className="form-control" 
+  type="text"
+  name="name"
+  required
+
+  value={formData.name}
+  onChange={handleChange}
+  onFocus={handleFocus}
+  onBlur={handleBlur}
+/>
                 </div>
                 <div className="form-group">
                   <label className="form-label" htmlFor="email">Email</label>
@@ -154,6 +187,9 @@ const Contact = () => {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
+                     required
                   />
                 </div>
                 <div className="form-group">
@@ -165,6 +201,9 @@ const Contact = () => {
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
+                    required
                   />
                 </div>
                 <div className="form-group">
@@ -175,13 +214,16 @@ const Contact = () => {
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
+                    
                   ></textarea>
                 </div>
                 <div className="sub-btn">
                   <button type="submit" className="submit-btn">
                     Submit
                   </button>
-                  <p className="text">We’ll get in touch with you shortly</p>
+                  <p className={`text ${showtext ? 'showtext' : 'hide'}`}>We’ll get in touch with you shortly</p>
                 </div>
               </form>
             </div>
@@ -230,4 +272,4 @@ const Contact = () => {
   );
 };
 
-export default Contact;
+export default Contact; 

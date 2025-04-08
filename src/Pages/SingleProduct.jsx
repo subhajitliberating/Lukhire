@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useRef } from "react";
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 import AOS from 'aos';
 import { useEffect, useState} from "react";
 import axios from "axios";
@@ -11,8 +13,10 @@ const SingleProduct = () => {
     const [singleProduct, setSingleProduct] = useState(null);
     const [quantity, setQuantity] = useState(1);
     const [loading, setLoading] = useState(false);
+    const [selectedImageIndex, setSelectedImageIndex] = useState(0);
     const Api_url = import.meta.env.VITE_API_URL;
-
+    const specRef = useRef(null);
+     const pdfRef = useRef(null);
     // Create array of all product images
     const productImages = singleProduct ? [
         singleProduct.image,
@@ -38,6 +42,9 @@ const SingleProduct = () => {
             mirror: false,
             anchorPlacement: 'top-center'
         });
+
+   
+
 
         const fetchSingleProduct = async () => {
             try {
@@ -70,6 +77,57 @@ const SingleProduct = () => {
         fetchRelatedProducts();
     }, [name, categoryName]);
 
+
+    const handleDownloadSpecifications = () => {
+        if (!singleProduct) return;
+      
+        // Create a hidden container for PDF content
+        const pdfContent = document.createElement('div');
+        pdfContent.style.position = 'absolute';
+        pdfContent.style.left = '-9999px';
+        pdfContent.style.width = '210mm'; // A4 width
+        pdfContent.style.padding = '20px';
+        pdfContent.style.fontFamily = 'Arial';
+        
+        // PDF content structure
+        pdfContent.innerHTML = `
+          <div class="pdf-container">
+            <h1 style="font-size: 24px; margin-bottom: 20px;">${singleProduct.name}</h1>
+            <div style="margin-bottom: 15px;">
+              <strong>Manufacturer:</strong> ${singleProduct.manufacturer}<br>
+              <strong>Model:</strong> ${singleProduct.model}<br>
+              <strong>Code:</strong> ${singleProduct.code}
+            </div>
+            <h2 style="font-size: 20px; margin: 20px 0;">Specifications</h2>
+            <div class="specs-content" style="line-height: 1.6;">
+              ${singleProduct.Specifications}
+            </div>
+          </div>
+        `;
+      
+        document.body.appendChild(pdfContent);
+      
+        html2canvas(pdfContent, {
+          scale: 3, // Increase scale for better quality
+          logging: true,
+          useCORS: true
+        }).then((canvas) => {
+          const imgData = canvas.toDataURL('image/png', 1.0);
+          const pdf = new jsPDF('p', 'mm', 'a4');
+          const imgWidth = pdf.internal.pageSize.getWidth() - 40; // 20mm margins
+          const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      
+          pdf.setFont('helvetica', 'normal');
+          pdf.addImage(imgData, 'PNG', 20, 20, imgWidth, imgHeight);
+          document.body.removeChild(pdfContent);
+          pdf.save(`${singleProduct.name}-specifications.pdf`);
+        }).catch(error => {
+          console.error('Error generating PDF:', error);
+          document.body.removeChild(pdfContent);
+        });
+      };
+      
+
     const handleQuantity = (operation) => {
         setQuantity(prev => {
             if(operation === 'inc') return prev + 1;
@@ -77,6 +135,22 @@ const SingleProduct = () => {
             return prev;
         });
     };
+
+
+    const truncateHTML = (html, maxWords) => {
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = html;
+        const text = tempDiv.textContent || tempDiv.innerText || '';
+        const words = text.trim().split(/\s+/);
+        
+        if (words.length <= maxWords) return html;
+        
+        // Find approximate truncation point
+        const truncatedText = words.slice(0, maxWords).join(' ');
+        const truncatedHTML = html.substring(0, html.indexOf(truncatedText) + truncatedText.length) + '...';
+        
+        return truncatedHTML;
+      };
 
     if(!singleProduct) return <div>Loading...</div>;
 
@@ -94,24 +168,57 @@ const SingleProduct = () => {
                         </ul>
                     </div>
                     <div className="row">
-                        <div className="col-lg-4 col-md-4 col-sm-12">
-                            <div className="lf-side">
-                                <div id="sync1" className="owl-carousel">
-                                    {productImages.map((img, index) => (
-                                        <div key={index} className="img-panel">
-                                            <img src={`${Api_url}/uploads/${img}`} alt={singleProduct.name} />
-                                        </div>
-                                    ))}
-                                </div>
-                                <div id="sync2" className="owl-carousel">
-                                    {productImages.map((img, index) => (
-                                        <div key={index} className="item">
-                                            <img src={`${Api_url}/uploads/${img}`} alt="thumb" />
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
+                    <div className="col-lg-4 col-md-4 col-sm-12">
+    <div className="lf-side">
+        {/* Main image display */}
+        <div className="main-image-box" style={{ marginBottom: '15px', borderRadius: '8px', overflow: 'hidden' }}>
+            {productImages.length > 0 && (
+                <img 
+                    src={`${Api_url}/uploads/${productImages[selectedImageIndex]}`} 
+                    alt={singleProduct.name} 
+                    style={{ 
+                        width: '100%', 
+                        height: '400px', 
+                        objectFit: 'cover',
+                        borderRadius: '8px',
+                        boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+                    }}
+                />
+            )}
+        </div>
+
+        {/* Thumbnail carousel */}
+        <div className="thumbnail-carousel" style={{ display: 'flex', gap: '10px', overflowX: 'auto', paddingBottom: '10px' }}>
+            {productImages.map((img, index) => (
+                <div 
+                    key={index} 
+                    className="thumbnail-item"
+                    style={{
+                        flex: '0 0 80px',
+                        cursor: 'pointer',
+                        border: selectedImageIndex === index ? '2px solid #007bff' : '1px solid #ddd',
+                        borderRadius: '6px',
+                        overflow: 'hidden',
+                        opacity: selectedImageIndex === index ? 1 : 0.7,
+                        transition: 'all 0.3s ease'
+                    }}
+                    onClick={() => setSelectedImageIndex(index)}
+                >
+                    <img 
+                        src={`${Api_url}/uploads/${img}`} 
+                        alt="thumb" 
+                        style={{
+                            width: '100%',
+                            height: '80px',
+                            objectFit: 'cover',
+                            borderRadius: '4px'
+                        }}
+                    />
+                </div>
+            ))}
+        </div>
+    </div>
+</div>
                         <div className="col-lg-6 col-md-6 col-sm-12">
                             <div className="product-desc">
                                 <div className="products-sub-title">{singleProduct.manufacturer}</div>
@@ -138,12 +245,29 @@ const SingleProduct = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <p className="text mb-4">
+                                {/* <p className="text mb-4">
                                     <b>Description:</b> {singleProduct.Description}
-                                </p>
-                                <p className="text mb-4">
-                                    <b>Specifications:</b>  <div dangerouslySetInnerHTML={{ __html: singleProduct.Specifications }} />
-                                </p>
+                                </p> */}
+
+<div className="text mb-4">
+  <b>Specifications:</b>
+  {/* Visible truncated content */}
+  <div 
+    dangerouslySetInnerHTML={{ 
+      __html: truncateHTML(singleProduct.Specifications, 50) 
+    }} 
+  />
+  
+  {/* Hidden full content for PDF */}
+  <div 
+    style={{ display: 'none' }} 
+    dangerouslySetInnerHTML={{ __html: singleProduct.Specifications }} 
+    ref={pdfRef}
+  />
+</div>
+<div class="download">
+                                <button  onClick={handleDownloadSpecifications}  class="accent-btn download"><i class="fa-solid fa-download"></i> Download Specifications</button>
+                            </div>
                                 <div className="price-block">
                                     <div className="price-title">Hire Price</div>
                                     <div className="row">
@@ -204,7 +328,7 @@ const SingleProduct = () => {
                                             €{product.hire_price_day_one}
                                         </span>
                                         <Link 
-                                            to={`/category/${categoryName}/${product.slug}`} 
+                                            to={`/equipment/${categoryName}/${product.slugto}`} 
                                             className="accent-btn"
                                         >
                                             View Options

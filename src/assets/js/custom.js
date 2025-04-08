@@ -174,21 +174,6 @@ jQuery(document).ready(function () {
 //AOS Js
 
 //Input textarea Animation
-jQuery(document).ready(function () {
-    jQuery('input,textarea').focus(function () {
-        $(this).parents('.form-group').addClass('focused');
-    });
-
-    jQuery('input,textarea').blur(function () {
-        var inputValue = $(this).val();
-        if (inputValue == "") {
-            $(this).removeClass('filled');
-            $(this).parents('.form-group').removeClass('focused');
-        } else {
-            $(this).addClass('filled');
-        }
-    })
-});
 
 //Accordion Js
 // jQuery(document).ready(function () {

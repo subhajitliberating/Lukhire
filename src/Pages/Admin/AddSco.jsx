@@ -1,12 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate ,useLocation } from "react-router-dom";
 import { Editor } from "@tinymce/tinymce-react";
 
 const AddSco = ({ token }) => {
     const { id } = useParams();
     const navigate = useNavigate();
     const editorRef = useRef(null);
+    const location = useLocation()
+
+    const check = location?.state?.disible || false;
     
     const [Sco, setSco] = useState({
         title: "",
@@ -23,6 +26,7 @@ const AddSco = ({ token }) => {
     const Api_url = import.meta.env.VITE_API_URL;
 
     useEffect(() => {
+       
         if (id) fetchScoData();
     }, [id]);
 
@@ -76,7 +80,7 @@ const AddSco = ({ token }) => {
         <div className="container my-4">
             <div className="formStyle">
                 <h2 className="mb-4 text-center" style={{ color: "#34495e" }}>
-                    {id ? "Edit Sco" : "Add New Sco"}
+                    {id ?  check ? "View Sco":"Edit Sco" : "Add New Sco"}
                 </h2>
 
                 <form onSubmit={handleSubmit}>
@@ -89,6 +93,7 @@ const AddSco = ({ token }) => {
                             value={Sco.title}
                             onChange={handleChange}
                             required
+                            disabled = {check}
                         />
                     </div>
 
@@ -101,6 +106,7 @@ const AddSco = ({ token }) => {
                             value={Sco.page_name}
                             onChange={handleChange}
                             required
+                            disabled = {check}
                         />
                     </div>
 
@@ -113,6 +119,7 @@ const AddSco = ({ token }) => {
                             value={Sco.meta_description}
                             onChange={handleChange}
                             required
+                            disabled = {check}
                         />
                     </div>
 
@@ -124,15 +131,18 @@ const AddSco = ({ token }) => {
                             name="meta_keywords"
                             value={Sco.meta_keywords}
                             onChange={handleChange}
-                            required
+                            required 
+                            disabled = {check}
                         />
                     </div>
 
                   
 
-                    <button type="submit" className="btn btn-dark me-2">
-                        {id ? "Update Sco" : "Add Sco"}
-                    </button>
+                 {!check &&(
+                       <button type="submit" className="btn btn-dark me-2">
+                       {id ? "Update Sco" : "Add Sco"}
+                   </button>
+                 ) }
                 </form>
             </div>
 

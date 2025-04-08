@@ -94,7 +94,7 @@ const handelsug = (id , name)=>{
         <section className="service-block aos-animated" id="service">
             <div className="container">
                 <div className="row">
-                    <div className="col-lg-4 col-md-6 col-sm-6">
+                    <div className="col-lg-4 col-md-4 col-sm-6 mt-5">
                         <div className="box" data-aos="fade-up">
                             <div className="icon-panel">
                                 <img src={Freeshipping} alt="free-shipping" />
@@ -107,7 +107,7 @@ const handelsug = (id , name)=>{
                             </div>
                         </div>
                     </div>
-                    <div className="col-lg-4 col-md-6 col-sm-6">
+                    <div className="col-lg-4 col-md-4 col-sm-6 mt-5">
                         <div className="box" data-aos="fade-up">
                             <div className="icon-panel">
                                 <img src={SUPPORT} alt="SUPPORT" />
@@ -120,7 +120,7 @@ const handelsug = (id , name)=>{
                             </div>
                         </div>
                     </div>
-                    <div className="col-lg-4 col-md-6 col-sm-6">
+                    <div className="col-lg-4 col-md-4 col-sm-6 mt-5">
                         <div className="box" data-aos="fade-up">
                             <div className="icon-panel">
                                 <img src={MEMBERS} alt="MEMBERS-DISCOUNT" />
@@ -190,11 +190,11 @@ const handelsug = (id , name)=>{
                     </div>
                     <div className="quack-block">
                       <ul>
-                        <li>
+                        {/* <li>
                           <a href={product.heartIconLink}>
                             <i className="fa-regular fa-heart"></i>
                           </a>
-                        </li>
+                        </li> */}
                         <li>
                           <a href={product.viewIconLink} data-bs-toggle="modal" data-bs-target={product.modalTarget}>
                             <i className="fa-solid fa-eye"></i>
@@ -215,11 +215,11 @@ const handelsug = (id , name)=>{
                           Browse Options →
                         </a>
                       </li>
-                      <li>
+                      {/* <li>
                         <a href={product.heartIconLink} className="accent-btn">
                           <i className="fa-regular fa-heart"></i>
                         </a>
-                      </li>
+                      </li> */}
                     </ul>
                   </div>
                 </div>

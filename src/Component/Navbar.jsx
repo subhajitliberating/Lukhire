@@ -1,9 +1,12 @@
 import React, { useEffect } from "react";
 import logo from '../assets/images/logo.png'
 import { Link, useLocation } from "react-router-dom";
+import { useState } from "react";
 const Navbar = () => {
 
     const location = useLocation();
+    
+         const [menuOpen, setMenuOpen] = useState(false);
 
     const navLinks = [
       { path: "/", label: "Home" },
@@ -45,11 +48,11 @@ const Navbar = () => {
                         </ul>
                     </div>
                     <div className="rt-side">
-                        <div className="block">
+                        {/* <div className="block">
                             <ul>
                                 <li><a href="#">Wishlist (0)</a></li>
                             </ul>
-                        </div>
+                        </div> */}
                         <div className="block">
                             <select name="" id="">
                                 <option value="">EUR (€)</option>
@@ -62,20 +65,39 @@ const Navbar = () => {
                                 <option value="">English</option>
                             </select>
                         </div>
-                        <div className="block">
+                        {/* <div className="block">
                             <ul>
                                 <li><a href="#">My Orders</a></li>
                             </ul>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>
         </div>
+
+        <div className="mobile-rt-side">
+              {/* ✅ Toggle menu open */}
+              <button className="mobile-mob_open_menu" onClick={() => setMenuOpen(!menuOpen)}><i className="fa fa-bars"></i></button>
+
+              {/* ✅ Mobile nav */}
+              <div className={`navigation-mobile ${menuOpen ? "open" : ""}`}>
+                <button className="mobile-mob_close_menu" onClick={() => setMenuOpen(!menuOpen)}><i className="fas fa-times"></i></button>
+                <ul>
+                  {navLinks.map((link) => (
+                    <li key={link.path} className={location.pathname === link.path ? "active" : ""}>
+                      <Link to={link.path} onClick={() => setMenuOpen(false)}>{link.label}</Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+            </div>
+
         <div className="btm-header">
             <div className="container">
                 <div className="inner-content">
                     <div className="logo-panel">
-                        <a href="index.html"><img src={logo} alt="" /></a>
+                        <a href="/"><img src={logo} alt="" /></a>
                     </div>
                     <div className="rt-side">
                         <a className="mob_open_menu" href="javascript:void(0)"><i className="fa fa-bars"></i></a>
@@ -89,9 +111,9 @@ const Navbar = () => {
       ))}
     </ul>
                         </div>
-                        <div className="card-item">
+                        {/* <div className="card-item">
                             <a href="#"><i className="fa-solid fa-cart-shopping"></i> 0 Items | € 0.00</a>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>

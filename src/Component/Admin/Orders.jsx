@@ -97,7 +97,7 @@ const Orders = ({token})=>{
         // await axios.delete(`${Api_url}apiv1/orders/${id}`);
         // fetchOrders();
       } catch (error) {
-        console.error('Error deleting category:', error);
+        console.error('Error deleting Order:', error);
       }
     };
 

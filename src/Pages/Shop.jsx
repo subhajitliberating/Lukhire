@@ -225,9 +225,10 @@ console.log(response)
                                             </span>
                                         </Link>
                                         <div className="add-to-card">
-                                            <button className="accent-btn">
+                                           
+                                            <Link className="accent-btn" to={`/equipment/${encodeURIComponent(product.Category.toLowerCase().replace(/\s+/g, '-'))}/${encodeURIComponent(product.name.toLowerCase().replace(/\s+/g, '-'))}`}>
                                                 Hire
-                                            </button>
+                                            </Link>
                                         </div>
                                     </div>
                                 ))}

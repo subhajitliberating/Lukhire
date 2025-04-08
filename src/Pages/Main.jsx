@@ -1,9 +1,10 @@
 import React from "react";
 import Navbar from '../Component/Navbar'
 import { Outlet } from "react-router-dom";
-
+import { useState } from "react";
 
 const Main = ()=>{
+     const [menuOpen, setMenuOpen] = useState(false);
     const helmetContext = {};
     return(
 

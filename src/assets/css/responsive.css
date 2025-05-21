@@ -60,8 +60,87 @@
   }
 
   
-  /* add your 393 css in 767 for for mobile view */
+  
   @media (max-width: 767px) {
+    .BookEquipment .form-panel {
+padding: 0px;
+    }
+    .OurValues .box {
+    max-width: 400px;
+    margin-bottom: 80px;
+    text-align: center;
+    margin: auto;
+}
+.OurValues .box .text-desc .text {
+    text-align: center;
+}
+.c-cxcellence-w {
+    margin-bottom: 0;
+}
+.OurValues {
+    padding: 50px 0;
+}
+    .category-lukhire-img {min-height: 250px;}
+.category-header{padding-bottom:0; font-size:31px;}
+.category-header:after{bottom:0;}
+.c-cxcellence-w .img-panel img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+}
+.c-cxcellence-w .text-panel {
+    max-width: 100%;
+    padding: 10px 10px;
+}
+    .breadcrumbs ul li {
+    font-size: 10px;}
+    .about-block .about-desc {
+    padding: 50px;
+    clip-path: polygon(5% 0, 100% 0, 95% 100%, 0% 100%);
+    margin-left: 0;
+}
+    .cst-projects .count-panel{max-width:400px;}
+    .cst-projects .count-panel .box h3{font-size:45px;}
+    .card-item {
+    position: relative;
+    
+    }
+    .quantity-label{
+      margin: 12px;
+    }
+    .remove-icon{
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      border: none;
+    }
+    .cst-projects {
+    margin-top: 0;
+    padding-bottom: 35px;
+    padding-top: 35px;
+}
+.cst-projects .count-panel .items {
+    flex-direction: column;
+    gap: 25px;
+}
+.about-block .about-desc {
+    padding: 50px;
+}
+.checkout-form {
+    padding: 0px 30px;
+    margin-bottom: 0px;
+}
+    .home-banner{
+      margin-top: 80px;
+    }
+        .banner .banner-desc .banner-title, .about-block .about-desc .heading,.category-header {
+        font-size: 24px;
+        margin: 0;
+    }
+
+    .navbar-default .inner-content{
+      display: none;
+    }
     .btm-header{
         display: none;
 
@@ -74,10 +153,35 @@
         object-fit: cover;
         width: 100%;
     }
+
+  .order-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .order-image img {
+    width: 100%;
+    height: auto;
+  }
+
+  .order-details {
+    width: 100%;
+  }
+
+      .navbar-default .mobile-rt-side {
+        display: flex;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background-color: rgb(229, 229, 229);
+
+
+    }
+
   
   }
   
-  /* Extra small devices (phones, less than 576px) */
+
  
   
 
@@ -95,9 +199,31 @@
     .container {
       padding: 0 5px;
     }
-    .navbar-default .mobile-rt-side{
+    /* .navbar-default .mobile-rt-side{
         display: flex;
-    }
+    } */
   }
+
+
+  @media (min-width:992px){
+
+.product-desc {
+
+    padding-left: 40px;
+
+}
+
+}
+ 
+
+@media (min-width:1240px){
+.card-items-container {
+    max-width: 1140px;
+    margin: auto;
+}
+}
+.item-info {
+    gap: 25px;
+}
 
   

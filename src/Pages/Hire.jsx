@@ -130,7 +130,7 @@ const handelsug = (id , name)=>{
                 <div className="btm-desc" data-aos="fade-up">
                     <div className="heading">Ready to elevate your construction projects?</div>
                     <p className="text">Explore Lukhire's extensive equipment catalog now and experience the difference in quality and service.</p>
-                    <a href="/shop" className="accent-btn">Shop Now</a>
+                    <a href="/hireproduct" className="accent-btn">Hire Now</a>
                 </div>
             </div>
         </section>

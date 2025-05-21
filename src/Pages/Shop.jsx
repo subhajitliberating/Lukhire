@@ -7,6 +7,7 @@ import axios from "axios";
 import { Helmet } from 'react-helmet-async';
 import fetchScoData from "../Contex/GetSco";
 import { Link ,useLocation,useParams} from "react-router-dom";
+import Loader from "../Component/Loader";
 
 const Shop = () => {
 
@@ -136,7 +137,7 @@ console.log(response)
               
               
              
-            <Banner title={'Shop Products'} />
+            <Banner title={'Hire Products'} />
 
             <section className="c-arrivals-w">
                 <div className="container">
@@ -203,44 +204,51 @@ console.log(response)
                         </div>
 
                         {/* Products Grid */}
-                        <div className="col-lg-9 col-md-8 col-sm-12">
-                            <div className="row g-5">
-                                {products.map(product => (
-                                    <div className="col-lg-4 col-md-6 col-sm-12" key={product.id} data-aos="fade-up">
-                                        <Link to={`/equipment/${encodeURIComponent(product.Category.toLowerCase().replace(/\s+/g, '-'))}/${encodeURIComponent(product.name.toLowerCase().replace(/\s+/g, '-'))}`}> 
-                                            <span className="img-panel">
-                                                <img 
-                                                    src={`${Api_url}/uploads/${product.image}`} 
-                                                    alt={product.name} 
-                                                    style={{
-                                                        height : '200px'
-                                                    }}
-                                                />
-                                            </span>
-                                            <span className="text-panel">
-                                                <span className="product-title">{product.name}</span>
-                                                <span className="product-price">
-                                                    €{product.hire_price_day_one}
-                                                </span>
-                                            </span>
-                                        </Link>
-                                        <div className="add-to-card">
-                                           
-                                            <Link className="accent-btn" to={`/equipment/${encodeURIComponent(product.Category.toLowerCase().replace(/\s+/g, '-'))}/${encodeURIComponent(product.name.toLowerCase().replace(/\s+/g, '-'))}`}>
-                                                Hire
-                                            </Link>
-                                        </div>
-                                    </div>
-                                ))}
-                                {products.length  <= 0  && (
-                                    <div className="col-lg-4 col-md-6 col-sm-12">
-                                        NO PRoduct Found
-                                    </div>
-                                )}
-                            </div>
-                            {loading && <div className="text-center my-4">Loading more products...</div>}
-                        </div>
-                    </div>
+                    <div className="col-lg-9 col-md-8 col-sm-12">
+  <div className="row g-4">
+    {products.map(product => (
+      <div className="col-lg-4 col-md-6 col-sm-12 " key={product.id} data-aos="fade-up">
+        <div className="product-card shadow-sm rounded p-3 h-100
+        cus-p-card">
+          <Link to={`/equipment/${product.Category.trim()}/${product.slugto}`} className="text-decoration-none text-dark">
+            <div className="img-container mb-3">
+              <img
+                src={`${Api_url}/uploads/${product.image}`}
+                alt={product.name}
+                className="w-100 rounded"
+                style={{ height: '200px', objectFit: 'cover' }}
+              />
+            </div>
+            <div className="product-details-card">
+              <h5 className="fw-bold mb-2">{product.name}</h5>
+              <p className="mb-1"><strong>Category:</strong> {product.Category}</p>
+              <p className="mb-1"><strong>Manufacturer:</strong> {product.manufacturer || 'N/A'}</p>
+              <p className="mb-2"><strong>Model:</strong> {product.model || 'N/A'}</p>
+              <p className="text-price">Price: €{product.hire_price_day_one}</p>
+            </div>
+          </Link>
+          <div className="text-center mt-2">
+            <Link className="btn btn-sm  w-100 accent-btn" to={`/equipment/${product.Category.trim()}/${product.slugto}`}>
+              Hire
+            </Link>
+          </div>
+        </div>
+      </div>
+    ))}
+
+    {products.length <= 0 && (
+      <div className="col-12 text-center">
+        <p className="text-muted">No Product Found</p>
+      </div>
+    )}
+  </div>
+
+  {loading && (
+    <Loader />
+  )}
+</div>
+</div>
+
                 </div>
             </section>
             <section className="cst-projects aos-animated" id="cst-projects">
@@ -264,7 +272,7 @@ console.log(response)
                 <div className="btm-desc" data-aos="fade-up">
                     <div className="heading">Ready to elevate your construction projects?</div>
                     <p className="text">Explore Lukhire's extensive equipment catalog now and experience the difference in quality and service.</p>
-                    <a href="/shop" className="accent-btn">Shop Now</a>
+                    <a href="/hireproduct" className="accent-btn">Hire Now</a>
                 </div>
             </div>
         </section>

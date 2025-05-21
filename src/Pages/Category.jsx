@@ -150,6 +150,7 @@ import AOS from 'aos';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import Footer from '../Component/Footer';
 import Banner from '../Component/Banner';
+import Loader from '../Component/Loader';
 
 const Category = () => {
     const { categoryName } = useParams();
@@ -254,7 +255,7 @@ const Category = () => {
                             {subCategories.map((cat, index) => (
                                   <div key={cat.id || `category-${index}`} className="col-lg-3 col-md-6 col-sm-12">
                                                                       <div className="box" data-aos="fade-up">
-                                                                      <Link to={`/shop/${encodeURIComponent(cat.Category.toLowerCase().replace(/\s+/g, '-'))}`}>
+                                                                      <Link to={`/hireproduct/${encodeURIComponent(cat.Category.toLowerCase().replace(/\s+/g, '-'))}`}>
                                                                           {/* <Link to={`/shop/${encodeURIComponent(cat.Category.toLowerCase().replace(/\s+/g, '-'))}/${encodeURIComponent(cat.id)}`}> */}
                                                                               <span className="img-panel">
                                                                                   <img src={`${Api_url}/uploads/${cat?.image}`} alt={cat?.Category} />
@@ -274,7 +275,7 @@ const Category = () => {
                             
                             {subCategories.length === 0 && !loading && (
                                 <div className="col-12 text-center py-5">
-                                    <h3>No subcategories found</h3>
+                                    <h3>No Subcategories found</h3>
                                 </div>
                             )}
                         </div>
@@ -282,11 +283,7 @@ const Category = () => {
                 </section>
 
                 {loading && (
-                    <div className="text-center my-4">
-                        <div className="spinner-border text-primary" role="status">
-                            <span className="visually-hidden">Loading...</span>
-                        </div>
-                    </div>
+                  <Loader/>
                 )}
 
                 {!hasMore && subCategories.length > 0 && (

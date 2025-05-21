@@ -22,7 +22,7 @@ const Sco = ({token})=>{
      const nav =  useNavigate()
      const columns = [
         {
-            header: 'Sco ID',
+            header: 'Seo ID',
             accessor: 'id'
           },
       { header: 'Page Name', accessor: 'page_name' },
@@ -97,15 +97,15 @@ const Sco = ({token})=>{
     };
 
    const  handelAddCategory =()=>{
-nav('/admin/addsco')
+nav('/admin/addseo')
     }
 
     const handelEdite = (id)=>{
-      nav(`/admin/editsco/${id}`)
+      nav(`/admin/editseo/${id}`)
     }
 
     const HandelView = (row)=>{
-      nav(`/admin/scoview/${row.id}`,{state : {disible : true}})
+      nav(`/admin/seoview/${row.id}`,{state : {disible : true}})
     }
 
     const handleSubmit = (e) => {
@@ -118,9 +118,9 @@ nav('/admin/addsco')
     return (
       <div className="container">
         <div className="d-flex bg-secondary justify-content-between align-items-center my-4">
-        <h4 className=" text-white p-2 m-0"> Sco</h4>
+        <h4 className=" text-white p-2 m-0"> Seo</h4>
         <button className="btn btn-light m-2" onClick={handelAddCategory} >
-            Add Sco 
+            Add Seo 
         </button>
     </div>
    

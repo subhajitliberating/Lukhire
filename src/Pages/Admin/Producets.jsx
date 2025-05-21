@@ -103,7 +103,7 @@ const Producets = ({token})=>{
     };
 
    const  handelAddCategory =()=>{
-nav('/admin/addproductes')
+nav('/admin/addproducts')
     }
 
     const handelEdite = (id)=>{
@@ -124,9 +124,9 @@ nav('/admin/addproductes')
     return (
       <div className="container">
         <div className="d-flex bg-secondary justify-content-between align-items-center my-4">
-        <h4 className=" text-white p-2 m-0"> Producets</h4>
+        <h4 className=" text-white p-2 m-0"> Products</h4>
         <button className="btn btn-light m-2" onClick={handelAddCategory} >
-            Add Producet
+            Add Product
         </button>
     </div>
    

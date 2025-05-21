@@ -6,6 +6,7 @@ import { FaBox, FaTag, FaInfoCircle, FaMoneyBillWave, FaCalendarAlt, FaIdCard } 
 const ProductViewPage = () => {
     const { id } = useParams();
     const [product, setProduct] = useState(null);
+      const [expanded, setExpanded] = useState(false);
     const Api_url = import.meta.env.VITE_API_URL;
 
     useEffect(() => {
@@ -40,7 +41,11 @@ const ProductViewPage = () => {
     const createdAtDate = new Date(product.createdAt).toLocaleDateString();
     const updatedAtDate = new Date(product.updatedAt).toLocaleDateString();
 
-  
+    const plainText = product?.Specifications.replace(/<[^>]+>/g, '');
+  const words = plainText.split(/\s+/);
+  const isLong = words.length > 100;
+
+  const truncatedText = words.slice(0, 100).join(' ') + '...';
          
         
             return (
@@ -77,39 +82,42 @@ const ProductViewPage = () => {
                                 <Card.Body className="px-3">
                                     {/* Title Section */}
                                     <div className="mb-4 pb-3 border-bottom border-2">
-                                        <h1 className="display-5 fw-bold mb-3 text-gradient">
+                                        <h1 className="display-5 fw-bold mb-3 text-gradient productview-titile">
                                             {product.name}
                                         </h1>
                                         <div className="d-flex align-items-center gap-2">
-                                            <Badge 
+                                            {/* <Badge 
                                                 pill 
                                                 bg={product.hire_status ? "success" : "danger"} 
                                                 className="fs-6 px-3 py-2 d-flex align-items-center gap-2"
                                             >
                                                 <FaTag className="me-1" />
                                                 {product.hire_status ? 'Available' : 'Not Available'}
-                                            </Badge>
+                                            </Badge> */}
                                         </div>
                                     </div>
         
                                     {/* Main Product Info */}
                                     <Row className="g-3 mb-4">
-                                        <Col md={6}>
+                                        <Col md={12}>
                                             <div className="bg-light p-3 rounded-3 mb-3 shadow-sm">
-                                                <h5 className=" mb-3 d-flex align-items-center gap-2 p-2">
-                                                    <FaBox /> Basic Info
+                                                <h5 className=" mb-3 d-flex align-items-center gap-2 p-2 basic_info-title ">
+                                                    <FaBox  /> Basic Info
                                                 </h5>
                                                 <dl className="row">
-                                                    <dt className="col-sm-5 text-muted">Category:</dt>
-                                                    <dd className="col-sm-7 fw-medium">{product.Category}</dd>
-        
-                                                    <dt className="col-sm-5 text-muted">Quantity:</dt>
-                                                    <dd className="col-sm-7 fw-medium">{product.quntity}</dd>
+                                                    <div className='basic_info'>
+                                                    <dt className="text-muted mx-2">Category:</dt>
+                                                    <dd className="fw-medium ">{product.Category}</dd>
+                                                     </div>
+                                                     <div className='basic_info'>
+                                                    <dt className="text-muted mx-2">Quantity:</dt>
+                                                    <dd className="fw-medium">{product.quntity}</dd>
+                                                    </div>
                                                 </dl>
                                             </div>
                                         </Col>
         
-                                        <Col md={6}>
+                                        {/* <Col md={12}>
                                             <div className="bg-light p-3 rounded-3 mb-3 shadow-sm">
                                                 <h5 className=" p-2 mb-3 d-flex align-items-center gap-2">
                                                     <FaMoneyBillWave /> Pricing
@@ -122,13 +130,13 @@ const ProductViewPage = () => {
                                                     <dd className="col-sm-7 fw-medium">${product.hire_deposit}</dd>
                                                 </dl>
                                             </div>
-                                        </Col>
+                                        </Col> */}
                                     </Row>
         
                                     {/* Description & Specifications */}
                                     <div className="mb-4">
                                         <div className="bg-light p-3 rounded-3 mb-3 shadow-sm">
-                                            <h5 className=" p-2 mb-3 d-flex align-items-center gap-2">
+                                            <h5 className=" p-2 mb-3 d-flex align-items-center gap-2 basic_info-title">
                                                 <FaInfoCircle /> Details
                                             </h5>
                                             <div className="mb-3">
@@ -137,21 +145,44 @@ const ProductViewPage = () => {
                                                     {product.Description}
                                                 </p>
                                             </div>
-                                            <div>
+                                            {/* <div>
                                                 <h6 className="text-secondary mb-2">Specifications</h6>
                                                 <div 
                                                     className="text-muted mt-1 specifications-content"
                                                     style={{ lineHeight: '1.6' }}
                                                     dangerouslySetInnerHTML={{ __html: product.Specifications }} 
                                                 />
-                                            </div>
+                                            </div> */}
+
+                                              <div>
+      <h6 className="text-secondary mb-2">Specifications</h6>
+
+      <div
+        className="text-muted mt-1 specifications-content"
+        style={{ lineHeight: '1.6' }}
+        dangerouslySetInnerHTML={{
+          __html: expanded || !isLong
+            ? product.Specifications
+            : truncatedText
+        }}
+      />
+
+      {isLong && (
+        <button
+          className="btn btn-link p-0 mt-2"
+          onClick={() => setExpanded(!expanded)}
+        >
+          {expanded ? 'Read Less' : 'Read More'}
+        </button>
+      )}
+    </div>
                                         </div>
                                     </div>
         
                                     {/* Hire Pricing Section */}
                                     <div className="mb-4">
                                         <div className="bg-light p-3 rounded-3 shadow-sm">
-                                            <h5 className=" p-2 mb-4 d-flex align-items-center gap-2">
+                                            <h5 className=" p-2 mb-4 d-flex align-items-center gap-2 basic_info-title">
                                                 <FaCalendarAlt /> Hire Rates
                                             </h5>
                                             <Row>
@@ -161,7 +192,7 @@ const ProductViewPage = () => {
                                                     { days: '3 Days', price: product.hire_price_day_three },
                                                     { days: 'Weekly', price: product.hire_week, fullWidth: true }
                                                 ].map((rate, index) => (
-                                                    <Col md={rate.fullWidth ? 12 : 4} key={index}>
+                                                    <Col md={rate.fullWidth ? 12 : 4} className='mt-2' key={index}>
                                                         <div className={`bg-white p-3 rounded-2 mb-3 shadow-hover ${!rate.fullWidth ? 'h-100' : ''}`}>
                                                             <div className=" p-2 fw-bold small">{rate.days}</div>
                                                             <div className="h4 text-dark fw-bold mt-2">
@@ -177,14 +208,14 @@ const ProductViewPage = () => {
                                     {/* System Information */}
                                     <div className="mt-4">
                                         <div className="bg-light p-3 rounded-3 shadow-sm">
-                                            <h5 className=" p-2 mb-3 d-flex align-items-center gap-2">
+                                            <h5 className=" p-2 mb-3 d-flex align-items-center gap-2 basic_info-title">
                                                 <FaIdCard /> System Info
                                             </h5>
                                             <Row>
                                                 <Col md={6}>
                                                     <dl className="row">
-                                                        <dt className="col-sm-6 text-muted">Product UID:</dt>
-                                                        <dd className="col-sm-6 fw-medium">{product.p_uid}</dd>
+                                                        <dt className="col-sm-6 text-muted">Product Code:</dt>
+                                                        <dd className="col-sm-6 fw-medium">{product.code}</dd>
                                                     </dl>
                                                 </Col>
                                                 <Col md={6}>

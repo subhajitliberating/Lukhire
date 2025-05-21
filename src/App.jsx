@@ -26,6 +26,9 @@ import Sco from './Component/Admin/Sco';
 import AddSco from './Pages/Admin/AddSco';
 import AdminContact from './Pages/Admin/AdminContact';
 import { HelmetProvider } from 'react-helmet-async';
+import UserLogin from './Pages/UserLogin';
+import Card from './Pages/Card';
+import MyOrders from './Pages/MyOrders';
 function App() {
   const [token, setToken] = useState(null);
 
@@ -60,35 +63,39 @@ const AppRoutes = ({ token, setToken }) => {
           <Route path="addcategory" element={<AddCategory token={token} />} />
           <Route path="editcategory/:id" element={<AddCategory token={token} />} />
           <Route path=":name/categories/:id" element={<SubCategory token={token} />} />
-          <Route path="productes" element={<Producets token={token} />} />
-          <Route path="addproductes" element={<AddProducts token={token} />} />
+          <Route path="products" element={<Producets token={token} />} />
+          <Route path="addproducts" element={<AddProducts token={token} />} />
           <Route path="editproduct/:id" element={<AddProducts token={token} />} />
           <Route path=":name/productview/:id" element={<Producets token={token} />} />
           <Route path="productview/:id" element={<ProductViewPage token={token} />} />
           <Route path="orders" element={<Orders token={token} />} />
           <Route path="dashboard" element={<DashboardHome token={token} />} />
           <Route path="orderview/:id" element={<OrderView token={token} />} />
-          <Route path="sco" element={<Sco token={token} />} />
-          <Route path="addsco" element={<AddSco token={token} />} />
-          <Route path="scoview/:id" element={<AddSco token={token} />} />
+          <Route path="seo" element={<Sco token={token} />} />
+          <Route path="addseo" element={<AddSco token={token} />} />
+          <Route path="seoview/:id" element={<AddSco token={token} />} />
           <Route path="message" element={<AdminContact token={token} />} />
-          <Route path="editsco/:id" element={<AddSco token={token} />} />
+          <Route path="editseo/:id" element={<AddSco token={token} />} />
 
         </Route>
       )}
       <Route path="/admin/login" element={<Login setToken={setToken} />} />
+      <Route path="/login" element={<UserLogin />} />
+        <Route path="/register" element={<UserLogin />} />
       <Route path="/" element={<Main />}>
         <Route index element={<Home />} />
         <Route path="equipment/:categoryName" element={<Category />} />
-        <Route path="shop" element={<Shop />} />
-        <Route path="shop/:categoryName" element={<Shop />} />
+        <Route path="hireproduct" element={<Shop />} />
+        <Route path="hireproduct/:categoryName" element={<Shop />} />
         <Route path="equipment/:categoryName/:name" element={<SingleProduct />} />
         <Route path="about" element={<About />} />
         <Route path="hire" element={<Hire />} />
         <Route path="faq" element={<Faq />} />
         <Route path="contact" element={<Contact />} />
+        <Route path="cart" element={<Card />} />
     
-<Route path="/hire/:category/:product" element={<HirePage />} />
+<Route path="/checkout" element={<HirePage />} />
+<Route path="/myorders" element={<MyOrders />} />
        
       </Route>
     </Routes>

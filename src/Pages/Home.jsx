@@ -14,10 +14,27 @@ import SUPPORT from '../assets/images/SUPPORT.png'
 import MEMBERS from '../assets/images/MEMBERS-DISCOUNT.png'
 import { Helmet } from 'react-helmet-async';
 import fetchScoData from "../Contex/GetSco";
+import Loader from "../Component/Loader";
 const Home= ()=>{
   const [category,setCategory]=useState([])
   const [metaData,setMetaData]=useState({})
+  const [products,setProducts]=useState([])
   const Api_url = import.meta.env.VITE_API_URL;
+
+
+  const fetchProducts = async (searchQuery) => {
+  try {
+    const response = await axios.get(`${Api_url}/products/product/search`, {
+      params: {
+        search: searchQuery,
+        limit: 20 // optional, can change or omit
+      }
+    });
+   setProducts(response.data.products)
+  } catch (err) {
+    console.error('Search Error:', err);
+  }
+};
 const nav = useNavigate()
     useEffect(()=>{
   
@@ -75,16 +92,56 @@ const handelsug = (id , name)=>{
       </Helmet>
         <div id="main_lukhire">
 
-        <section className="banner" id="banner">
+        <section className="banner home-banner" id="banner">
             <div className="hero-img">
                 <img src={banner} alt="banner" />
             </div>
             <div className="banner-desc">
                 <div className="container">
                     <div className="text-panel">
-                        <div className="sub-title">Your Key to Unmatched Engineering Efficiency</div>
-                        <div className="banner-title">Plant & Tools Hire Solutions </div>
-                        <p className="text">Empowering Construction, building and engineering Excellence with
+                        <div className="sub-title home-sub-title">Your Key to Unmatched Engineering Efficiency</div>
+                        <div className="banner-title home-banner-title">Plant & Tools Hire Solutions </div>
+
+                        <div className="search-box-div">
+                          <div class="input-group mx-input">
+  <input type="search" class="form-control rounded cus-search" placeholder="Search" aria-label="Search" aria-describedby="search-addon" onChange={(e)=>{
+      fetchProducts(e.target.value)
+      
+  }} onBlur={()=>{
+    setTimeout(()=>{
+ setProducts([])
+    },100)
+   
+  }} />
+<div className="search-resule" style={{
+  display: products.length > 0 ? 'block' : 'none'
+}}>
+<div>
+  {products.map((product, index) =>(
+<div className="row search-card" onClick={()=>{
+nav(`/equipment/${product.Category}/${product.slugto}`)
+
+}}>
+<div className="col-5">
+  <p className="search-text"><strong >{product.name}</strong></p>
+  <p className="search-text">Manufacturer: <strong>{product.manufacturer}</strong></p>
+</div>
+<div className="col-5">
+  
+  <p className="search-text">Category: <strong>{ product.Category}</strong></p>
+</div>
+<div className="col-2">
+<i class="fa-solid fa-arrow-right"></i>
+</div>
+</div>
+  ))}
+</div>
+  
+</div>
+</div>
+
+                        </div>
+                        <p className="text pt-3">Empowering Construction, building and engineering Excellence with
                             Premier Equipment Solutions from Lukhire.</p>
                     </div>
                 </div>
@@ -143,33 +200,36 @@ const handelsug = (id , name)=>{
               
 
 <div className="row justify-content-center">
-      {category.map((category,index) => (
-        <div key={category.index} className="col-lg-3 col-md-6 col-sm-12">
-          <div className="box" data-aos="fade-up">
-          
-          <Link to={`/equipment/${encodeURIComponent(category.Category.toLowerCase().replace(/\s+/g, '-'))}`}>
-       
-              <span className="img-panel">
-                <img  src={`${Api_url}/uploads/${category?.image}`}  alt={category?.Category} />
-              </span>
-              <span className="text-desc">
-                <span className="text" data-aos="fade-up">
-                  {category?.Category}
-                </span>
-                <span className="text view-btn" data-aos="fade-up">
-                  {/* {category?.Description} */}
-                  {' View Collection → '}
-                </span>
-              </span>
-            </Link>
-          </div>
-        </div>
-      ))}
+  {category.length === 0 && (
+   <Loader/>
+  ) }
+          {category.map((category,index) => (
+             <div key={category.index} className="col-lg-3 col-md-6 col-sm-12">
+               <div className="box" data-aos="fade-up">
+               
+               <Link to={`/equipment/${encodeURIComponent(category.Category.toLowerCase().replace(/\s+/g, '-'))}`}>
+            
+                   <span className="img-panel">
+                     <img  src={`${Api_url}/uploads/${category?.image}`}  alt={category?.Category} />
+                   </span>
+                   <span className="text-desc">
+                     <span className="text" data-aos="fade-up">
+                       {category?.Category}
+                     </span>
+                     <span className="text view-btn" data-aos="fade-up">
+                       {/* {category?.Description} */}
+                       {' View Collection → '}
+                     </span>
+                   </span>
+                 </Link>
+               </div>
+             </div>
+           ))}
     </div>
             </div>
         </section>
        
-        <section className="shop-category aos-animated" id="shop-category">
+        {/* <section className="shop-category aos-animated" id="shop-category">
       <div className="container">
         <div className="top-panel text-center">
           <div className="heading" data-aos="fade-down">
@@ -194,7 +254,7 @@ const handelsug = (id , name)=>{
                           <a href={product.heartIconLink}>
                             <i className="fa-regular fa-heart"></i>
                           </a>
-                        </li> */}
+                        </li> 
                         <li>
                           <a href={product.viewIconLink} data-bs-toggle="modal" data-bs-target={product.modalTarget}>
                             <i className="fa-solid fa-eye"></i>
@@ -215,11 +275,11 @@ const handelsug = (id , name)=>{
                           Browse Options →
                         </a>
                       </li>
-                      {/* <li>
+                      <li>
                         <a href={product.heartIconLink} className="accent-btn">
                           <i className="fa-regular fa-heart"></i>
                         </a>
-                      </li> */}
+                      </li> 
                     </ul>
                   </div>
                 </div>
@@ -228,7 +288,7 @@ const handelsug = (id , name)=>{
           </div>
         </div>
       </div>
-    </section>
+    </section> */}
        
         <section className="about-block aos-animated" id="about">
             <div className="container">
@@ -262,7 +322,7 @@ const handelsug = (id , name)=>{
                 <div className="btm-desc" data-aos="fade-up">
                     <div className="heading">Ready to elevate your construction projects?</div>
                     <p className="text">Explore Lukhire's extensive equipment catalog now and experience the difference in quality and service.</p>
-                    <a href="/shop" className="accent-btn">Shop Now</a>
+                    <a href="/hireproduct" className="accent-btn">Hire Now</a>
                 </div>
             </div>
         </section>

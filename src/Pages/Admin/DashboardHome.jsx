@@ -281,7 +281,7 @@ export default function DashboardHome({token}) {
                 <Table hover className="mb-0">
                   <thead className="bg-light" style={{ background: `${colors.primary}08 !important` }}>
                     <tr>
-                      {['Order ID', 'Customer', 'Status', 'Amount'].map((th, idx) => (
+                      {['Order ID', 'Customer', 'Status'].map((th, idx) => (
                         <th 
                           key={idx} 
                           className="border-0" 
@@ -319,9 +319,9 @@ export default function DashboardHome({token}) {
                               {order.orderStatus}
                             </Badge>
                           </td>
-                          <td className="text-end fw-bold">
+                          {/* <td className="text-end fw-bold">
                             €{order.hire_price || order.amount}
-                          </td>
+                          </td> */}
                         </motion.tr>
                       ))}
                     </tbody>

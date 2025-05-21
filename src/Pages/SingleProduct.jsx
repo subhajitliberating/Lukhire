@@ -6,7 +6,12 @@ import { useEffect, useState} from "react";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import Banner from "../Component/Banner";
+import { CartContext } from '../Contex/CartContext';
+import { useContext } from 'react';
 import Footer from "../Component/Footer";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const SingleProduct = () => {
     const { categoryName, name } = useParams();
     const [products, setProducts] = useState([]);
@@ -17,6 +22,14 @@ const SingleProduct = () => {
     const Api_url = import.meta.env.VITE_API_URL;
     const specRef = useRef(null);
      const pdfRef = useRef(null);
+       const { addToCart } = useContext(CartContext);
+
+  const handleHire = () => {
+    addToCart(singleProduct, quantity);
+     toast.success("Product Add To Cart"); 
+  };
+
+  
     // Create array of all product images
     const productImages = singleProduct ? [
         singleProduct.image,
@@ -137,6 +150,10 @@ const SingleProduct = () => {
     };
 
 
+
+
+
+
     const truncateHTML = (html, maxWords) => {
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = html;
@@ -156,6 +173,7 @@ const SingleProduct = () => {
 
     return (
         <div className="category-lukhire-access">
+             <ToastContainer /> 
             <Banner title={singleProduct?.name}/>
             <section className="singlequipment aos-animated" id="singlequipment">
                 <div className="container">
@@ -163,12 +181,12 @@ const SingleProduct = () => {
                         <ul>
                             <li><Link to="/">Home / </Link></li>
                             <li><Link to="/hire">Equipment / </Link></li>
-                            <li><Link to={`/shop/${categoryName}`}>{categoryName} / </Link></li>
+                            <li><Link to={`/hireproduct/${singleProduct.slug}`}>{categoryName} / </Link></li>
                             <li>{singleProduct.name}</li>
                         </ul>
                     </div>
                     <div className="row">
-                    <div className="col-lg-4 col-md-4 col-sm-12">
+                    <div className="col-lg-5 col-md-5 col-sm-12">
     <div className="lf-side">
         {/* Main image display */}
         <div className="main-image-box" style={{ marginBottom: '15px', borderRadius: '8px', overflow: 'hidden' }}>
@@ -209,7 +227,7 @@ const SingleProduct = () => {
                         alt="thumb" 
                         style={{
                             width: '100%',
-                            height: '80px',
+                            height: '100%',
                             objectFit: 'cover',
                             borderRadius: '4px'
                         }}
@@ -219,7 +237,7 @@ const SingleProduct = () => {
         </div>
     </div>
 </div>
-                        <div className="col-lg-6 col-md-6 col-sm-12">
+                        <div className="col-lg-7 col-md-7 col-sm-12">
                             <div className="product-desc">
                                 <div className="products-sub-title">{singleProduct.manufacturer}</div>
                                 <div className="products-title">{singleProduct.name}</div>
@@ -292,12 +310,18 @@ const SingleProduct = () => {
                                     </div>
                                 </div>
                                 <div className="hire-btn">
-    <Link 
+    <button onClick={() => handleHire(singleProduct)}
+      
+        className="accent-btn w-100 border-0 py-3"
+    >
+        Hire
+    </button>
+       {/* <Link 
         to={`/hire/${categoryName}/${singleProduct.slugto}`}
         className="accent-btn w-100 border-0 py-3"
     >
         Hire
-    </Link>
+    </Link> */}
 </div>
                                 <p className="text my-3">{singleProduct.note}</p>
                             </div>
@@ -306,7 +330,7 @@ const SingleProduct = () => {
                 </div>
             </section>
 
-            <section className="equipmentitems aos-animated" id="equipmentitemproducts">
+            {/* <section className="equipmentitems aos-animated" id="equipmentitemproducts">
                 <div className="container">
                     <div className="heading">Related Products</div>
                     <div className="row justify-content-center">
@@ -339,7 +363,7 @@ const SingleProduct = () => {
                         ))}
                     </div>
                 </div>
-            </section>
+            </section> */}
             <Footer/>
         </div>
     )

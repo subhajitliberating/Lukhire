@@ -54,7 +54,7 @@ const Sidebar = ({setOpen}) => {
           <FaLayerGroup className="me-2" /> Sub Categories
         </NavLink> */}
 
-        <Link to="/admin/productes" className="nav-link ">
+        <Link to="/admin/products" className="nav-link ">
           <FaBox className="me-2" size={18} />
           
           <span className={`${isOpen ? '' : 'd-lg-none'}`}> Products</span> 
@@ -68,10 +68,10 @@ const Sidebar = ({setOpen}) => {
           <FaAddressBook className="me-2" /> <span className={`${isOpen ? '' : 'd-lg-none'}`}> Contacts
             </span> 
         </Link> */}
-         <Link to="/admin/sco" className="nav-link ">
+         <Link to="/admin/seo" className="nav-link ">
           < IoIosConstruct className="me-2" size={18}/> 
           <span className={`${isOpen ? '' : 'd-lg-none'}`}>
-          Sco
+          Seo
           
           </span>
         </Link>

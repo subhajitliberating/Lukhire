@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "ip": "vite --host 192.168.1.13",
+    "ip": "vite --host 192.168.1.17",
     "lint": "eslint .",
     "preview": "vite preview"
   },
@@ -26,6 +26,7 @@
     "react-helmet-async": "^2.0.5",
     "react-icons": "^5.5.0",
     "react-router-dom": "^7.3.0",
+    "react-toastify": "^11.0.5",
     "recharts": "^2.15.1"
   },
   "devDependencies": {
@@ -40,3 +41,5 @@
     "vite": "^6.2.0"
   }
 }
+
+

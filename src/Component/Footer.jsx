@@ -1,9 +1,26 @@
 import React from "react";
-
+import { useState,useEffect } from "react";
 import logo from '../assets/footer-logo.png'
 import Pay from '../assets/images/pay.png'
 import prowreBy from '../assets/images/poweredbywhite.png'
+import axios from "axios";
+import { Link } from "react-router-dom";
 const Footer = ()=>{
+    const Api_url = import.meta.env.VITE_API_URL;
+    const [category,setCategory]=useState([])
+    
+    const FatchCategory = async ()=>{
+    try{
+    const respons = await axios.get(`${Api_url}/user/category`)
+    setCategory(respons.data)
+    }catch(error){
+    console.log(error)
+    }
+    }
+       useEffect(()=>{
+    
+        FatchCategory()
+    },[])
 return(
     <footer className="footer" id="footer">
     <div className="logo-section">
@@ -24,6 +41,12 @@ return(
                             </span>
                             <div className="link">
                                 <ul>
+                                    {category.map((category,index)=>(
+                                        <li>    <Link key={index} to={`/equipment/${encodeURIComponent(category.Category.toLowerCase().replace(/\s+/g, '-'))}`}>
+                                           {category.Category}
+                                            </Link>
+                                        </li>
+                                    ))}
                                     <li><a href="#">Deliveries</a></li>
                                     <li><a href="#">Order Status</a></li>
                                     <li><a href="support.html">Support</a></li>

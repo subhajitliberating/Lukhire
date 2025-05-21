@@ -76,7 +76,8 @@ const AddCategory = ({ token }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData();
-        formData.append("Category", category.Category);
+     formData.append("Category", category.Category.trim());
+
         formData.append("Description", category.Description);
         formData.append("Parent", category.Parent === 'none' ? 'main' : category.Parent);
         formData.append("Parent_id", category.Parent_id);
